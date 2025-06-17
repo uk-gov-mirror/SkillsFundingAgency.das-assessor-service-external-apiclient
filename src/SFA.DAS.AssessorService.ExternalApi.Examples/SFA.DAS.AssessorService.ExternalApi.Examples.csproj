@@ -6,12 +6,6 @@
     <StartupObject>SFA.DAS.AssessorService.ExternalApi.Examples.ProgramCsv</StartupObject>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <NoWarn>1701;1702;CA1307;CA1716;CA2007;</NoWarn>
-  </PropertyGroup>
-
   <ItemGroup>
     <None Remove="CsvFiles\createCertificates.csv" />
     <None Remove="CsvFiles\createEpaRecords.csv" />
