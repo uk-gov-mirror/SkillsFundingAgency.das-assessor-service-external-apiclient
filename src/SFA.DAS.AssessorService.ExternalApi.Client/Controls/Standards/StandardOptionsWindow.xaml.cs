@@ -2,7 +2,6 @@
 {
     using Microsoft.Win32;
     using SFA.DAS.AssessorService.ExternalApi.Client.Helpers;
-    using SFA.DAS.AssessorService.ExternalApi.Client.Properties;
     using SFA.DAS.AssessorService.ExternalApi.Core.Infrastructure;
     using SFA.DAS.AssessorService.ExternalApi.Core.Models.Standards;
     using System;
@@ -36,8 +35,8 @@
 
         private async Task GetStandardOptions()
         {
-            string subscriptionKey = Settings.Default["SubscriptionKey"].ToString();
-            string apiBaseAddress = Settings.Default["ApiBaseAddress"].ToString();
+            string subscriptionKey = App.ApiSettings.SubscriptionKey;
+            string apiBaseAddress = App.ApiSettings.ApiBaseAddress;
 
             using (HttpClient httpClient = new HttpClient())
             {
@@ -122,7 +121,11 @@
                 var optionsToSave = options.Select(o => new { o.StandardCode, o.StandardReference, o.Version, CourseOptions = string.Join(",", o.CourseOption)});
 
                 CsvFileHelper<dynamic>.SaveToFile(saveFileDialog.FileName, optionsToSave);
-                System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = saveFileDialog.FileName,
+                    UseShellExecute = true
+                });
             }
         }
     }

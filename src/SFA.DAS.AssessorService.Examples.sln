@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2016
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.AssessorService.ExternalApi.Core", "SFA.DAS.AssessorService.ExternalApi.Core\SFA.DAS.AssessorService.ExternalApi.Core.csproj", "{E3AEA363-0ABE-41D8-9B87-3E42078B9FD3}"
 EndProject

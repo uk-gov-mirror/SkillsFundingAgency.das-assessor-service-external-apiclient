@@ -2,7 +2,6 @@
 {
     using Microsoft.Win32;
     using SFA.DAS.AssessorService.ExternalApi.Client.Helpers;
-    using SFA.DAS.AssessorService.ExternalApi.Client.Properties;
     using SFA.DAS.AssessorService.ExternalApi.Core.Infrastructure;
     using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Request.Epa;
     using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Response.Epa;
@@ -84,8 +83,8 @@
 
         private async Task DeleteEpaRecords()
         {
-            string subscriptionKey = Settings.Default["SubscriptionKey"].ToString();
-            string apiBaseAddress = Settings.Default["ApiBaseAddress"].ToString();
+            string subscriptionKey = App.ApiSettings.SubscriptionKey;
+            string apiBaseAddress = App.ApiSettings.ApiBaseAddress;
 
             using (HttpClient httpClient = new HttpClient())
             {
@@ -154,7 +153,12 @@
                 var epasToSave = invalidEpaRecords.Select(ic => new { ic.Uln, ic.FamilyName, ic.Standard, Errors = ic.Error?.Message });
 
                 CsvFileHelper<dynamic>.SaveToFile(saveFileDialog.FileName, epasToSave);
-                System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = saveFileDialog.FileName,
+                    UseShellExecute = true
+                });
+
             }
         }
     }
