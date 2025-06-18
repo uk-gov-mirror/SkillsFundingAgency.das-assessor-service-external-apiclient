@@ -9,8 +9,8 @@
         public CreateEpaRequestMap()
         {
             Map(m => m.RequestId);
-            Map(m => m.Standard).ConvertUsing(row => row.GetRecord<Core.Models.Certificates.Standard>());
-            Map(m => m.Learner).ConvertUsing(row => row.GetRecord<Core.Models.Certificates.Learner>());
+            Map(m => m.Standard).Convert(row => row.Row.GetRecord<Core.Models.Certificates.Standard>());
+            Map(m => m.Learner).Convert(row => row.Row.GetRecord<Core.Models.Certificates.Learner>());
             References<EpaDetailsMap>(m => m.EpaDetails);
         }
 
@@ -20,7 +20,7 @@
             {
                 Map(m => m.LatestEpaDate).Ignore();
                 Map(m => m.LatestEpaOutcome).Ignore();
-                Map(m => m.Epas).ConvertUsing(row => new List<Core.Models.Epa.EpaRecord> { row.GetRecord<Core.Models.Epa.EpaRecord>() });
+                Map(m => m.Epas).Convert(row => new List<Core.Models.Epa.EpaRecord> { row.Row.GetRecord<Core.Models.Epa.EpaRecord>() });
             }
         }
     }

@@ -38,7 +38,7 @@
                 _ViewModel.FilePath = openFileDialog.FileName;
                 _ViewModel.Requests.Clear();
 
-                var items = CsvFileHelper<DeleteCertificateRequest>.GetFromFile(_ViewModel.FilePath);
+                var items = CsvFileHelper<DeleteCertificateRequest>.GetFromFile<DeleteCertificateRequest>(_ViewModel.FilePath);
 
                 if (items is null || !items.Any())
                 {

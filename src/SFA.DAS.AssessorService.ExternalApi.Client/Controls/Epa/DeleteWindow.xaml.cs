@@ -3,6 +3,7 @@
     using Microsoft.Win32;
     using SFA.DAS.AssessorService.ExternalApi.Client.Helpers;
     using SFA.DAS.AssessorService.ExternalApi.Core.Infrastructure;
+    using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Request.Certificates;
     using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Request.Epa;
     using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Response.Epa;
     using System;
@@ -38,7 +39,7 @@
                 _ViewModel.FilePath = openFileDialog.FileName;
                 _ViewModel.Requests.Clear();
 
-                var items = CsvFileHelper<DeleteEpaRequest>.GetFromFile(_ViewModel.FilePath);
+                var items = CsvFileHelper<DeleteEpaRequest>.GetFromFile<DeleteEpaRequest>(_ViewModel.FilePath);
 
                 if (items is null || !items.Any())
                 {

@@ -101,7 +101,7 @@
                 {
                     return new ValidationResult("Enter the achievement date", new List<string> { "AchievementDate" });
                 }
-                else if (achievementDate.Value < new DateTime(2017, 1, 1))
+                else if (achievementDate.Value < new DateTime(2017, 1, 1, 0, 0, 0, DateTimeKind.Utc))
                 {
                     return new ValidationResult("An achievement date cannot be before 01 01 2017", new List<string> { "AchievementDate" });
                 }

@@ -17,7 +17,7 @@
             bool isValid = status.IsValid(out var validationResults);
 
             // assert
-            Assert.IsTrue(isValid);
+            Assert.That(isValid, Is.True);
             Assert.That(validationResults, Has.Count.EqualTo(0));
         }
 
@@ -33,7 +33,7 @@
             bool areEqual = status1 == status2;
 
             // assert
-            Assert.IsTrue(areEqual);
+             Assert.That(areEqual, Is.True);
         }
 
         [Test]
@@ -48,7 +48,7 @@
             bool areNotEqual = status1 != status2;
 
             // assert
-            Assert.IsTrue(areNotEqual);
+            Assert.That(areNotEqual, Is.True);
         }
     }
 }

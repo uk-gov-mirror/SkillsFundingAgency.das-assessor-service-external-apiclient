@@ -3,6 +3,7 @@
     using Microsoft.Win32;
     using SFA.DAS.AssessorService.ExternalApi.Client.Helpers;
     using SFA.DAS.AssessorService.ExternalApi.Core.Infrastructure;
+    using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Request.Certificates;
     using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Request.Learners;
     using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Response.Learners;
     using SFA.DAS.AssessorService.ExternalApi.Core.Models.Learners;
@@ -39,7 +40,7 @@
                 _ViewModel.FilePath = openFileDialog.FileName;
                 _ViewModel.Requests.Clear();
 
-                var items = CsvFileHelper<GetLearnerRequest>.GetFromFile(_ViewModel.FilePath);
+                var items = CsvFileHelper<GetLearnerRequest>.GetFromFile<GetLearnerRequest>(_ViewModel.FilePath);
 
                 if (items is null || !items.Any())
                 {

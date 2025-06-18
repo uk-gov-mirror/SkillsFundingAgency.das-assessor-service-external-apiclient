@@ -25,9 +25,9 @@
             bool isValid = certificateData.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("Learner is required", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("Learner is required").IgnoreCase);
         }
 
         [Test]
@@ -47,9 +47,9 @@
             bool isValid = certificateData.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("Standard is required", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("Standard is required").IgnoreCase);
         }
 
         [Test]
@@ -69,9 +69,9 @@
             bool isValid = certificateData.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("LearningDetails is required", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("LearningDetails is required").IgnoreCase);
         }
 
         [Test]
@@ -91,9 +91,9 @@
             bool isValid = certificateData.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("PostalContact is required", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("PostalContact is required").IgnoreCase);
         }
 
         [Test]
@@ -114,7 +114,7 @@
             bool isValid = certificateData.IsValid(out var validationResults);
 
             // assert
-            Assert.IsTrue(isValid);
+            Assert.That(isValid, Is.True);
             Assert.That(validationResults, Has.Count.EqualTo(0));
         }
 
@@ -142,7 +142,7 @@
             bool areEqual = certificateData1 == certificateData2;
 
             // assert
-            Assert.IsTrue(areEqual);
+             Assert.That(areEqual, Is.True);
         }
 
         [Test]
@@ -170,7 +170,7 @@
             bool areNotEqual = certificateData1 != certificateData2;
 
             // assert
-            Assert.IsTrue(areNotEqual);
+            Assert.That(areNotEqual, Is.True);
         }
     }
 }

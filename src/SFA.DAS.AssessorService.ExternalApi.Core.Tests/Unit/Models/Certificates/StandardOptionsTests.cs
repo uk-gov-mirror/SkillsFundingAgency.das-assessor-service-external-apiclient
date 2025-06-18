@@ -19,7 +19,7 @@
             bool areEqual = standard1 == standard2;
 
             // assert
-            Assert.IsTrue(areEqual);
+             Assert.That(areEqual, Is.True);
         }
 
         [Test]
@@ -34,7 +34,7 @@
             bool areNotEqual = standard1 != standard2;
 
             // assert
-            Assert.IsTrue(areNotEqual);
+            Assert.That(areNotEqual, Is.True);
         }
     }
 }

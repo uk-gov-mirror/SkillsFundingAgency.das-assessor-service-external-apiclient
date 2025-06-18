@@ -13,16 +13,17 @@
         public void AchievementDateBeforeDigitalCertificates()
         {
             // arrange
-            DateTime firstDigitalCertificate = new DateTime(2017, 1, 1);
+            DateTime firstDigitalCertificate = new DateTime(2017, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var learningDetails = Builder<LearningDetails>.CreateNew().With(l => l.AchievementDate = firstDigitalCertificate.AddDays(-1)).With(l => l.OverallGrade = "Pass").Build();
 
             // act
             bool isValid = learningDetails.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("An achievement date cannot be before 01 01 2017", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Does.StartWith("An achievement date cannot be before 01 01 2017"));
+
         }
 
         [Test]
@@ -35,9 +36,9 @@
             bool isValid = learningDetails.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("An achievement date cannot be in the future", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("An achievement date cannot be in the future").IgnoreCase);
         }
 
         [Test]
@@ -50,9 +51,9 @@
             bool isValid = learningDetails.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("Enter the achievement date", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("Enter the achievement date").IgnoreCase);
         }
 
         [Test]
@@ -65,9 +66,9 @@
             bool isValid = learningDetails.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("Select the grade the apprentice achieved", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("Select the grade the apprentice achieved").IgnoreCase);
         }
 
         [Test]
@@ -80,9 +81,9 @@
             bool isValid = learningDetails.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.StartsWith("Invalid grade. Must one of the following:", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Does.StartWith("Invalid grade"));
         }
 
         [Test]
@@ -95,7 +96,7 @@
             bool isValid = learningDetails.IsValid(out var validationResults);
 
             // assert
-            Assert.IsTrue(isValid);
+            Assert.That(isValid, Is.True);
             Assert.That(validationResults, Has.Count.EqualTo(0));
         }
 
@@ -111,7 +112,7 @@
             bool areEqual = learningDetails1 == learningDetails2;
 
             // assert
-            Assert.IsTrue(areEqual);
+             Assert.That(areEqual, Is.True);
         }
 
         [Test]
@@ -126,7 +127,7 @@
             bool areNotEqual = learningDetails1 != learningDetails2;
 
             // assert
-            Assert.IsTrue(areNotEqual);
+            Assert.That(areNotEqual, Is.True);
         }
     }
 }

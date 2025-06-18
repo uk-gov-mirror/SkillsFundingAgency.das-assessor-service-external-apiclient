@@ -66,10 +66,14 @@
 
             using (TextReader textReader = File.OpenText(filePath))
             {
-                using (CsvReader csv = new CsvReader(textReader))
+                var config = new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
                 {
-                    csv.Configuration.HeaderValidated = null;
-                    csv.Configuration.MissingFieldFound = null;
+                    HeaderValidated = null,
+                    MissingFieldFound = null
+                };
+
+                using (var csv = new CsvReader(textReader, config))
+                {
                     learners = csv.GetRecords<GetLearnerRequest>().ToList();
                 }
             }
@@ -104,11 +108,15 @@
 
             using (TextReader textReader = File.OpenText(filePath))
             {
-                using (CsvReader csv = new CsvReader(textReader))
+                var config = new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
                 {
-                    csv.Configuration.HeaderValidated = null;
-                    csv.Configuration.MissingFieldFound = null;
-                    csv.Configuration.RegisterClassMap(new CsvClassMaps.CreateEpaRequestMap());
+                    HeaderValidated = null,
+                    MissingFieldFound = null
+                };
+
+                using (var csv = new CsvReader(textReader, config))
+                {
+                    csv.Context.RegisterClassMap(new CsvClassMaps.CreateEpaRequestMap());
                     epaRecordsToCreate = csv.GetRecords<CreateEpaRequest>().ToList();
                 }
             }
@@ -141,20 +149,28 @@
 
             using (TextReader textReader = File.OpenText(filePath))
             {
-                using (CsvReader csv = new CsvReader(textReader))
+                var config = new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
                 {
-                    csv.Configuration.HeaderValidated = null;
-                    csv.Configuration.MissingFieldFound = null;
-                    csv.Configuration.RegisterClassMap(new CsvClassMaps.UpdateEpaRequestMap());
+                    HeaderValidated = null,
+                    MissingFieldFound = null
+                };
+
+                using (var csv = new CsvReader(textReader, config))
+                {
+                    csv.Context.RegisterClassMap(new CsvClassMaps.UpdateEpaRequestMap());
                     epaRecordsToUpdate = csv.GetRecords<UpdateEpaRequest>().ToList();
                 }
             }
 
             // Let's pretend the first and last apprentices have now passed their EPA
-            epaRecordsToUpdate.First().EpaDetails.Epas.First().EpaOutcome = "Pass";
-            epaRecordsToUpdate.First().EpaDetails.Epas.First().EpaDate = DateTime.UtcNow;
-            epaRecordsToUpdate.Last().EpaDetails.Epas.First().EpaOutcome = "Pass";
-            epaRecordsToUpdate.Last().EpaDetails.Epas.First().EpaDate = DateTime.UtcNow;
+            var epaList = epaRecordsToUpdate.ToList();
+
+            epaList[0].EpaDetails.Epas.ToList()[0].EpaOutcome = "Pass";
+            epaList[0].EpaDetails.Epas.ToList()[0].EpaDate = DateTime.UtcNow;
+
+            epaList[epaList.Count - 1].EpaDetails.Epas.ToList()[0].EpaOutcome = "Pass";
+            epaList[epaList.Count - 1].EpaDetails.Epas.ToList()[0].EpaDate = DateTime.UtcNow;
+
 
             // NOTE: The External API performs validation, however it is a good idea to check beforehand.
             bool invalidDataSupplied = epaRecordsToUpdate.Any(c => !c.IsValid(out _));
@@ -173,7 +189,6 @@
 
                 Console.WriteLine($"Good Certificates: {goodEpaRecords.Count()}, Bad Certificates: {badEpaRecords.Count()} ");
             }
-
         }
 
         public async Task DeleteEpaRecordExample()
@@ -184,10 +199,14 @@
 
             using (TextReader textReader = File.OpenText(filePath))
             {
-                using (CsvReader csv = new CsvReader(textReader))
+                var config = new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
                 {
-                    csv.Configuration.HeaderValidated = null;
-                    csv.Configuration.MissingFieldFound = null;
+                    HeaderValidated = null,
+                    MissingFieldFound = null
+                };
+
+                using (var csv = new CsvReader(textReader, config))
+                {
                     epaRecordsToDelete = csv.GetRecords<DeleteEpaRequest>().ToList();
                 }
             }
@@ -220,14 +239,14 @@
 
             IEnumerable<CreateCertificateRequest> certificatesToCreate;
 
-            using (TextReader textReader = File.OpenText(filePath))
+            using (var textReader = File.OpenText(filePath))
+            using (var csv = new CsvReader(textReader, new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
             {
-                using (CsvReader csv = new CsvReader(textReader))
-                {
-                    csv.Configuration.HeaderValidated = null;
-                    csv.Configuration.MissingFieldFound = null;
-                    certificatesToCreate = csv.GetRecords<CreateCertificateRequest>().ToList();
-                }
+                HeaderValidated = null,
+                MissingFieldFound = null
+            }))
+            {
+                certificatesToCreate = csv.GetRecords<CreateCertificateRequest>().ToList();
             }
 
             // NOTE: The External API performs validation, however it is a good idea to check beforehand.
@@ -256,13 +275,13 @@
             IEnumerable<UpdateCertificateRequest> certificates;
 
             using (TextReader textReader = File.OpenText(filePath))
+            using (var csv = new CsvReader(textReader, new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
             {
-                using (CsvReader csv = new CsvReader(textReader))
-                {
-                    csv.Configuration.HeaderValidated = null;
-                    csv.Configuration.MissingFieldFound = null;
-                    certificates = csv.GetRecords<UpdateCertificateRequest>().ToList();
-                }
+                HeaderValidated = null,
+                MissingFieldFound = null
+            }))
+            {
+                certificates = csv.GetRecords<UpdateCertificateRequest>().ToList();
             }
 
             // Let's pretend the first and last apprentices got better grades
@@ -286,7 +305,6 @@
 
                 Console.WriteLine($"Good Certificates: {goodCertificates.Count()}, Bad Certificates: {badCertificates.Count()} ");
             }
-
         }
 
         public async Task SubmitCertificatesExample()
@@ -296,13 +314,13 @@
             IEnumerable<SubmitCertificateRequest> certificates;
 
             using (TextReader textReader = File.OpenText(filePath))
+            using (var csv = new CsvReader(textReader, new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
             {
-                using (CsvReader csv = new CsvReader(textReader))
-                {
-                    csv.Configuration.HeaderValidated = null;
-                    csv.Configuration.MissingFieldFound = null;
-                    certificates = csv.GetRecords<SubmitCertificateRequest>().ToList();
-                }
+                HeaderValidated = null,
+                MissingFieldFound = null
+            }))
+            {
+                certificates = csv.GetRecords<SubmitCertificateRequest>().ToList();
             }
 
             // NOTE: The External API performs validation, however it is a good idea to check beforehand.
@@ -331,13 +349,13 @@
             IEnumerable<DeleteCertificateRequest> certificates;
 
             using (TextReader textReader = File.OpenText(filePath))
+            using (var csv = new CsvReader(textReader, new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
             {
-                using (CsvReader csv = new CsvReader(textReader))
-                {
-                    csv.Configuration.HeaderValidated = null;
-                    csv.Configuration.MissingFieldFound = null;
-                    certificates = csv.GetRecords<DeleteCertificateRequest>().ToList();
-                }
+                HeaderValidated = null,
+                MissingFieldFound = null
+            }))
+            {
+                certificates = csv.GetRecords<DeleteCertificateRequest>().ToList();
             }
 
             // NOTE: The External API performs validation, however it is a good idea to check beforehand.
@@ -349,7 +367,7 @@
             }
             else
             {
-                // NOTE: The External API does not have an batch delete (for safety reasons). You'll have to loop.
+                // NOTE: The External API does not have a batch delete (for safety reasons). You'll have to loop.
                 foreach (var request in certificates)
                 {
                     var response = await _CertificateApiClient.DeleteCertificate(request);
@@ -369,13 +387,13 @@
             IEnumerable<GetCertificateRequest> certificates;
 
             using (TextReader textReader = File.OpenText(filePath))
+            using (var csv = new CsvReader(textReader, new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
             {
-                using (CsvReader csv = new CsvReader(textReader))
-                {
-                    csv.Configuration.HeaderValidated = null;
-                    csv.Configuration.MissingFieldFound = null;
-                    certificates = csv.GetRecords<GetCertificateRequest>().ToList();
-                }
+                HeaderValidated = null,
+                MissingFieldFound = null
+            }))
+            {
+                certificates = csv.GetRecords<GetCertificateRequest>().ToList();
             }
 
             // NOTE: The External API performs validation, however it is a good idea to check beforehand.
@@ -387,7 +405,7 @@
             }
             else
             {
-                // NOTE: The External API does not have an batch delete (for safety reasons). You'll have to loop.
+                // NOTE: The External API does not have a batch get (for safety reasons). You'll have to loop.
                 foreach (var request in certificates)
                 {
                     var response = await _CertificateApiClient.GetCertificate(request);

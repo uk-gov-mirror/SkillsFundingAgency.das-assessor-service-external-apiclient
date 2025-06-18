@@ -81,7 +81,7 @@
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
             Assert.That(actual.First().ValidationErrors, Has.Count.EqualTo(0));
-            Assert.That(actual.First().Certificate, Is.EqualTo(expectedResponse.First().Certificate));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
         }
 
         [Test]
@@ -109,7 +109,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
             Assert.That(actual.First().Certificate, Is.Null);
         }
 
@@ -138,7 +138,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
             Assert.That(actual.First().Certificate, Is.Null);
         }
 
@@ -167,7 +167,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
             Assert.That(actual.First().Certificate, Is.Null);
         }
 
@@ -196,7 +196,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
             Assert.That(actual.First().Certificate, Is.Null);
         }
 
@@ -225,7 +225,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
             Assert.That(actual.First().Certificate, Is.Null);
         }
 
@@ -267,7 +267,7 @@
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
             Assert.That(actual.First().ValidationErrors, Has.Count.EqualTo(0));
-            Assert.That(actual.First().Certificate, Is.EqualTo(expectedResponse.First().Certificate));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
         }
 
         [Test]
@@ -296,7 +296,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
             Assert.That(actual.First().Certificate, Is.Null);
         }
 
@@ -326,7 +326,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
             Assert.That(actual.First().Certificate, Is.Null);
         }
 
@@ -363,7 +363,8 @@
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
             Assert.That(actual.First().ValidationErrors, Has.Count.EqualTo(0));
-            Assert.That(actual.First().Certificate, Is.EqualTo(expectedResponse.First().Certificate));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
+
         }
 
         [Test]
@@ -399,7 +400,7 @@
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
             Assert.That(actual.First().ValidationErrors, Has.Count.EqualTo(0));
-            Assert.That(actual.First().Certificate, Is.EqualTo(expectedResponse.First().Certificate));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
         }
 
         [Test]
@@ -423,7 +424,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].ValidationErrors, Is.EqualTo(expectedResponse.ToList()[0].ValidationErrors));
             Assert.That(actual.First().Certificate, Is.Null);
         }
 
@@ -448,7 +449,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
             Assert.That(actual.First().Certificate, Is.Null);
         }
 
@@ -473,7 +474,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].Certificate, Is.EqualTo(expectedResponse.ToList()[0].Certificate));
             Assert.That(actual.First().Certificate, Is.Null);
         }
 

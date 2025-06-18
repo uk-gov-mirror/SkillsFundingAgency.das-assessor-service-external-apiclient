@@ -39,7 +39,7 @@
                 _ViewModel.FilePath = openFileDialog.FileName;
                 _ViewModel.Requests.Clear();
 
-                var items = CsvFileHelper<SubmitCertificateRequest>.GetFromFile(_ViewModel.FilePath);
+                var items = CsvFileHelper<SubmitCertificateRequest>.GetFromFile<SubmitCertificateRequest>(_ViewModel.FilePath);
 
                 if (items is null || !items.Any())
                 {

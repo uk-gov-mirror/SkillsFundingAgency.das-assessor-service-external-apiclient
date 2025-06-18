@@ -29,9 +29,9 @@
             bool isValid = request.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("Enter the EPA reference", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("Enter the EPA reference").IgnoreCase);
         }
 
         [Test]
@@ -51,9 +51,9 @@
             bool isValid = request.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("Learner is required", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("Learner is required").IgnoreCase);
         }
 
         [Test]
@@ -73,9 +73,9 @@
             bool isValid = request.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("Standard is required", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("Standard is required").IgnoreCase);
         }
 
         [Test]
@@ -94,9 +94,9 @@
             bool isValid = request.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("EpaDetails is required", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("EpaDetails is required").IgnoreCase);
         }
 
         [Test]
@@ -117,7 +117,7 @@
             bool isValid = request.IsValid(out var validationResults);
 
             // assert
-            Assert.IsTrue(isValid);
+            Assert.That(isValid, Is.True);
             Assert.That(validationResults, Has.Count.EqualTo(0));
         }
 
@@ -145,7 +145,7 @@
             bool areEqual = request1 == request2;
 
             // assert
-            Assert.IsTrue(areEqual);
+             Assert.That(areEqual, Is.True);
         }
 
         [Test]
@@ -171,7 +171,7 @@
             bool areNotEqual = request1 != request2;
 
             // assert
-            Assert.IsTrue(areNotEqual);
+            Assert.That(areNotEqual, Is.True);
         }
     }
 }
