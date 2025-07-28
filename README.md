@@ -12,10 +12,10 @@ Licensed under the [MIT license](https://github.com/SkillsFundingAgency/das-asse
 
 ### Requirements
 
-- Install [Visual Studio 2017 or 2019](https://www.visualstudio.com/downloads/) with these workloads:
+- Install [Visual Studio 2022](https://www.visualstudio.com/downloads/) with these workloads:
     - ASP.NET and web development
     - .NET desktop development
-    - .NET Core 2.1 SDK
+    - .NET 8 SDK
 - Create an account on the [Developer Portal](https://developers.apprenticeships.education.gov.uk/)
     - Obtain External API Subscription Key and Base Address to Sandbox Environment
     - Can also be used to access the current Swagger Documentation
