@@ -18,9 +18,9 @@
             bool isValid = standard.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("A standard should be selected", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("A standard should be selected").IgnoreCase);
         }
 
         [Test]
@@ -33,9 +33,9 @@
             bool isValid = standard.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("A standard should be selected", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("A standard should be selected").IgnoreCase);
         }
 
         [Test]
@@ -48,7 +48,7 @@
             bool isValid = standard.IsValid(out var validationResults);
 
             // assert
-            Assert.IsTrue(isValid);
+            Assert.That(isValid, Is.True);
             Assert.That(validationResults, Has.Count.EqualTo(0));
         }
 
@@ -64,7 +64,7 @@
             bool areEqual = standard1 == standard2;
 
             // assert
-            Assert.IsTrue(areEqual);
+             Assert.That(areEqual, Is.True);
         }
 
         [Test]
@@ -79,7 +79,7 @@
             bool areNotEqual = standard1 != standard2;
 
             // assert
-            Assert.IsTrue(areNotEqual);
+            Assert.That(areNotEqual, Is.True);
         }
     }
 }

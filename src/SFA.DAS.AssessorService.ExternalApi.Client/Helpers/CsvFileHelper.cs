@@ -4,12 +4,13 @@
     using CsvHelper.Configuration;
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
 
     public static class CsvFileHelper<T>
     {
-        public static IEnumerable<T> GetFromFile(string filePath, ClassMap<T> map = null)
+        public static IEnumerable<TRecord> GetFromFile<TRecord>(string filePath, ClassMap<TRecord> map = null)
         {
             FileStream stream = null;
             try
@@ -18,25 +19,28 @@
 
                 using (TextReader textReader = new StreamReader(stream))
                 {
-                    using (CsvReader csv = new CsvReader(textReader))
+                    var config = new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)
                     {
-                        csv.Configuration.HeaderValidated = null;
-                        csv.Configuration.MissingFieldFound = null;
-                        csv.Configuration.BadDataFound = null;
-                        csv.Configuration.ReadingExceptionOccurred = null;
+                        HeaderValidated = null,
+                        MissingFieldFound = null,
+                        BadDataFound = null,
+                        ReadingExceptionOccurred = null
+                    };
 
+                    using (var csv = new CsvReader(textReader, config))
+                    {
                         if (map != null)
                         {
-                            csv.Configuration.RegisterClassMap(map);
+                            csv.Context.RegisterClassMap(map);
                         }
 
-                        return csv.GetRecords<T>().ToList();
+                        return csv.GetRecords<TRecord>().ToList();
                     }
                 }
             }
             catch (SystemException)
             {
-                return new List<T>();
+                return new List<TRecord>();
             }
             finally
             {
@@ -51,14 +55,15 @@
         {
             try
             {
-                using (TextWriter textReader = File.CreateText(filePath))
+                using (TextWriter textWriter = File.CreateText(filePath))
                 {
-                    using (CsvWriter csv = new CsvWriter(textReader))
+                    var config = new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture);
+
+                    using (var csv = new CsvWriter(textWriter, config))
                     {
                         csv.WriteHeader<T>();
                         csv.NextRecord();
                         csv.WriteRecords(records);
-                        csv.NextRecord();
                     }
                 }
             }

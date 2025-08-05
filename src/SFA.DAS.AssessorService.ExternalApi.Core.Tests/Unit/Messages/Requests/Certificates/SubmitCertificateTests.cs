@@ -18,9 +18,10 @@
             bool isValid = certificate.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("The apprentice's ULN should contain exactly 10 numbers", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("The apprentice's ULN should contain exactly 10 numbers").IgnoreCase);
+
         }
 
         [Test]
@@ -33,9 +34,9 @@
             bool isValid = certificate.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("A standard should be selected", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("A standard should be selected").IgnoreCase);
         }
 
         [Test]
@@ -48,9 +49,9 @@
             bool isValid = certificate.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("A standard should be selected", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("A standard should be selected").IgnoreCase);
         }
 
         [Test]
@@ -63,9 +64,9 @@
             bool isValid = certificate.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("Enter the apprentice's last name", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("Enter the apprentice's last name").IgnoreCase);
         }
 
         [Test]
@@ -78,9 +79,9 @@
             bool isValid = certificate.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("Enter the certificate reference", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("Enter the certificate reference").IgnoreCase);
         }
 
         [Test]
@@ -93,7 +94,7 @@
             bool isValid = certificate.IsValid(out var validationResults);
 
             // assert
-            Assert.IsTrue(isValid);
+            Assert.That(isValid, Is.True);
             Assert.That(validationResults, Has.Count.EqualTo(0));
         }
 
@@ -109,7 +110,7 @@
             bool areEqual = certificate1 == certificate2;
 
             // assert
-            Assert.IsTrue(areEqual);
+            Assert.That(areEqual, Is.True);
         }
 
         [Test]
@@ -124,7 +125,7 @@
             bool areNotEqual = certificate1 != certificate2;
 
             // assert
-            Assert.IsTrue(areNotEqual);
+            Assert.That(areNotEqual, Is.True);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using SFA.DAS.AssessorService.ExternalApi.Client.Helpers;
-using SFA.DAS.AssessorService.ExternalApi.Client.Properties;
 using SFA.DAS.AssessorService.ExternalApi.Core.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -118,8 +117,8 @@ namespace SFA.DAS.AssessorService.ExternalApi.Client
 
         private async Task GetGrades()
         {
-            string subscriptionKey = Settings.Default["SubscriptionKey"].ToString();
-            string apiBaseAddress = Settings.Default["ApiBaseAddress"].ToString();
+            string subscriptionKey = App.ApiSettings.SubscriptionKey;
+            string apiBaseAddress = App.ApiSettings.ApiBaseAddress;
 
             using (HttpClient httpClient = new HttpClient())
             {
@@ -174,7 +173,11 @@ namespace SFA.DAS.AssessorService.ExternalApi.Client
             if (saveFileDialog.ShowDialog() == true)
             {
                 CsvFileHelper<dynamic>.SaveToFile(saveFileDialog.FileName, grades.Select(g => new { Grade = g }));
-                System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = saveFileDialog.FileName,
+                    UseShellExecute = true
+                });
             }
         }
     }

@@ -2,8 +2,8 @@
 {
     using Microsoft.Win32;
     using SFA.DAS.AssessorService.ExternalApi.Client.Helpers;
-    using SFA.DAS.AssessorService.ExternalApi.Client.Properties;
     using SFA.DAS.AssessorService.ExternalApi.Core.Infrastructure;
+    using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Request.Certificates;
     using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Request.Learners;
     using SFA.DAS.AssessorService.ExternalApi.Core.Messages.Response.Learners;
     using SFA.DAS.AssessorService.ExternalApi.Core.Models.Learners;
@@ -40,7 +40,7 @@
                 _ViewModel.FilePath = openFileDialog.FileName;
                 _ViewModel.Requests.Clear();
 
-                var items = CsvFileHelper<GetLearnerRequest>.GetFromFile(_ViewModel.FilePath);
+                var items = CsvFileHelper<GetLearnerRequest>.GetFromFile<GetLearnerRequest>(_ViewModel.FilePath);
 
                 if (items is null || !items.Any())
                 {
@@ -85,8 +85,8 @@
 
         private async Task GetCertificates()
         {
-            string subscriptionKey = Settings.Default["SubscriptionKey"].ToString();
-            string apiBaseAddress = Settings.Default["ApiBaseAddress"].ToString();
+            string subscriptionKey = App.ApiSettings.SubscriptionKey;
+            string apiBaseAddress = App.ApiSettings.ApiBaseAddress;
 
             using (HttpClient httpClient = new HttpClient())
             {
@@ -168,7 +168,12 @@
                 var learnersToSave = invalidLearners.Select(ic => new { ic.Uln, ic.FamilyName, ic.Standard, Message = "This learner is not found" });
 
                 CsvFileHelper<dynamic>.SaveToFile(saveFileDialog.FileName, learnersToSave);
-                System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = saveFileDialog.FileName,
+                    UseShellExecute = true
+                });
+
             }
         }
 
@@ -195,7 +200,12 @@
                 var learnersToSave = invalidLearners.Select(ic => new { ic.Uln, ic.FamilyName, ic.Standard, Errors = ic.Error.Message });
 
                 CsvFileHelper<dynamic>.SaveToFile(saveFileDialog.FileName, learnersToSave);
-                System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = saveFileDialog.FileName,
+                    UseShellExecute = true
+                });
+
             }
         }
 
@@ -220,7 +230,12 @@
             if (saveFileDialog.ShowDialog() == true)
             {
                 CsvFileHelper<Learner>.SaveToFile(saveFileDialog.FileName, learners);
-                System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = saveFileDialog.FileName,
+                    UseShellExecute = true
+                });
+
             }
         }
     }

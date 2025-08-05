@@ -75,7 +75,7 @@
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
             Assert.That(actual.First().ValidationErrors, Has.Count.EqualTo(0));
-            Assert.That(actual.First().EpaReference, Is.EqualTo(expectedResponse.First().EpaReference));
+            Assert.That(actual.ToList()[0].EpaReference, Is.EqualTo(expectedResponse.ToList()[0].EpaReference));
         }
 
         [Test]
@@ -109,7 +109,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].ValidationErrors, Is.EqualTo(expectedResponse.ToList()[0].ValidationErrors));
             Assert.That(actual.First().EpaReference, Is.Null);
         }
 
@@ -143,7 +143,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].ValidationErrors, Is.EqualTo(expectedResponse.ToList()[0].ValidationErrors));
             Assert.That(actual.First().EpaReference, Is.Null);
         }
 
@@ -178,7 +178,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].ValidationErrors, Is.EqualTo(expectedResponse.ToList()[0].ValidationErrors));
             Assert.That(actual.First().EpaReference, Is.Null);
         }
 
@@ -213,7 +213,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].ValidationErrors, Is.EqualTo(expectedResponse.ToList()[0].ValidationErrors));
             Assert.That(actual.First().EpaReference, Is.Null);
         }
 
@@ -248,7 +248,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].ValidationErrors, Is.EqualTo(expectedResponse.ToList()[0].ValidationErrors));
             Assert.That(actual.First().EpaReference, Is.Null);
         }
 
@@ -284,7 +284,7 @@
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
             Assert.That(actual.First().ValidationErrors, Has.Count.EqualTo(0));
-            Assert.That(actual.First().EpaReference, Is.EqualTo(expectedResponse.First().EpaReference));
+            Assert.That(actual.ToList()[0].EpaReference, Is.EqualTo(expectedResponse.ToList()[0].EpaReference));
         }
 
         [Test]
@@ -320,7 +320,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].ValidationErrors, Is.EqualTo(expectedResponse.ToList()[0].ValidationErrors));
             Assert.That(actual.First().EpaReference, Is.Null);
         }
 
@@ -357,7 +357,7 @@
 
             // assert
             Assert.That(actual, Has.Count.EqualTo(1));
-            Assert.That(actual.First().ValidationErrors, Is.EqualTo(expectedResponse.First().ValidationErrors));
+            Assert.That(actual.ToList()[0].ValidationErrors, Is.EqualTo(expectedResponse.ToList()[0].ValidationErrors));
             Assert.That(actual.First().EpaReference, Is.Null);
         }
 

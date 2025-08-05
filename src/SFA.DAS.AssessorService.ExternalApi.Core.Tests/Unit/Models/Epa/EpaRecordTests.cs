@@ -19,9 +19,9 @@
             bool isValid = epaRecord.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("An Epa date cannot be in the future", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("An Epa date cannot be in the future").IgnoreCase);
         }
 
         [Test]
@@ -34,9 +34,9 @@
             bool isValid = epaRecord.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.AreEqualIgnoringCase("Select the outcome the apprentice achieved", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Is.EqualTo("Select the outcome the apprentice achieved").IgnoreCase);
         }
 
         [Test]
@@ -49,9 +49,9 @@
             bool isValid = epaRecord.IsValid(out var validationResults);
 
             // assert
-            Assert.IsFalse(isValid);
+            Assert.That(isValid, Is.False);
             Assert.That(validationResults, Has.Count.EqualTo(1));
-            StringAssert.StartsWith("Invalid outcome. Must one of the following:", validationResults.First().ErrorMessage);
+            Assert.That(validationResults.First().ErrorMessage, Does.StartWith("Invalid outcome. Must one of the following:"));
         }
 
         [Test]
@@ -64,7 +64,7 @@
             bool isValid = epaRecord.IsValid(out var validationResults);
 
             // assert
-            Assert.IsTrue(isValid);
+            Assert.That(isValid, Is.True);
             Assert.That(validationResults, Has.Count.EqualTo(0));
         }
 
@@ -80,7 +80,7 @@
             bool areEqual = epaRecord1 == epaRecord2;
 
             // assert
-            Assert.IsTrue(areEqual);
+             Assert.That(areEqual, Is.True);
         }
 
         [Test]
@@ -95,7 +95,7 @@
             bool areNotEqual = epaRecord1 != epaRecord2;
 
             // assert
-            Assert.IsTrue(areNotEqual);
+            Assert.That(areNotEqual, Is.True);
         }
     }
 }
